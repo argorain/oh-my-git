@@ -1,7 +1,7 @@
 %!TEX program = xelatex
 \documentclass{beamer}
 
-\usecolortheme[dark,accent=orange]{solarized}
+\usecolortheme[light,accent=orange]{solarized}
 
 \usepackage{subcaption}
 \usepackage{gitdags}
@@ -13,9 +13,9 @@
 \defaultfontfeatures{Ligatures=TeX}
 
 \title{Oh my GIT!}
-\subtitle{GIT ate my work!}
+\subtitle{Git ate my work and other stories}
 \author{Vojtěch Vladyka}
-\date{31/8/2019}
+\date{31.8.2019}
 
 % \setbeamercolor
 %
@@ -40,14 +40,20 @@
 
     \frame{\titlepage}
 	   \begin{frame}
-           \frametitle{Obsah}
+           \frametitle{Table of contents}
            \begin{enumerate}
-               \item Struktura materiálu
-%                   \\ \textcolor{ExecusharesGrey}{\footnotesize\hspace{1em} Chemické složení, výroba}	
-               \item Použití - oblečení, obuv
-%                   \\ \textcolor{ExecusharesGrey}{\footnotesize\hspace{1em} Nepromokavé membrány}
-               \item Použití - medicína
-%                   \\ \textcolor{ExecusharesGrey}{\footnotesize\hspace{1em} Inertní tkanina}
+               \item What is git
+               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} ...and why you should care}	
+               \item Setup git
+               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Clients, differences, common issues}	
+               \item Git vs. SVN
+               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} King is dead, long live the King!}	
+               \item Git essentials
+               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Git controls crash course}	
+               \item Scenarios
+               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} We are going to break things there. A lot.}	
+               \item QA
+               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Umm, why was I here again?}
            \end{enumerate}
        \end{frame}
        \begin{frame}
@@ -65,6 +71,21 @@
                     {v0.1}      % node text
                     {above=of A}% node placement
                     {A}         % target
+                % Remote branch
+                \gitremotebranch
+                    [originmaster]
+                    {origin/master}
+                    {above=of C}
+                    {C}
+                % Branch
+                \gitbranch
+                    {master}
+                    {above=of E}
+                    {E}
+                % HEAD reference
+                \gitHEAD
+                    {above=of master}
+                    {master}
             \end{tikzpicture}
        \end{frame}
        \section{Dotazy?}
