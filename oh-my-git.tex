@@ -1,18 +1,40 @@
-	%!TEX program = xelatex
-	\documentclass{beamer}
+%!TEX program = xelatex
+\documentclass{beamer}
 
-	\usepackage{blindtext}
+\usecolortheme[dark,accent=orange]{solarized}
 
-	\usepackage{xltxtra}
-	\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{gitdags}
 
-	\defaultfontfeatures{Ligatures=TeX}
+\usepackage{blindtext}
+\usepackage{xltxtra}
+\usepackage{wrapfig}
 
-	\title{Materiál GoreTex}
-	\subtitle{MNAN 2016}
-	\author{Vojtěch Vladyka}
-	%\garant{Supervisor}
-	\date{17. února, 2016}
+\defaultfontfeatures{Ligatures=TeX}
+
+\title{Oh my GIT!}
+\subtitle{GIT ate my work!}
+\author{Vojtěch Vladyka}
+\date{31/8/2019}
+
+% \setbeamercolor
+%
+% solarizedBase03
+% solarizedBase02
+% solarizedBase01
+% solarizedBase00
+% solarizedBase0
+% solarizedBase1
+% solarizedBase2
+% solarizedBase3
+% solarizedYellow
+% solarizedOrange
+% solarizedRed
+% solarizedMagenta
+% solarizedViolet
+% solarizedBlue
+% solarizedCyan
+% solarizedGreen
 
 \begin{document}
 
@@ -27,6 +49,23 @@
                \item Použití - medicína
 %                   \\ \textcolor{ExecusharesGrey}{\footnotesize\hspace{1em} Inertní tkanina}
            \end{enumerate}
+       \end{frame}
+       \begin{frame}
+            \begin{tikzpicture}
+                % Commit DAG
+                \gitDAG[grow right sep = 2em]{
+                    A -- B -- {
+                      C,
+                      D -- E,
+                    }
+                };
+                % Tag reference
+                \gittag
+                    [v0p1]      % node name
+                    {v0.1}      % node text
+                    {above=of A}% node placement
+                    {A}         % target
+            \end{tikzpicture}
        \end{frame}
        \section{Dotazy?}
        \section{Děkujeme za pozornost}
