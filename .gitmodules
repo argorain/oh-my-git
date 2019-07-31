@@ -1,0 +1,6 @@
+[submodule "beamercolorthemesolarized"]
+	path = beamercolorthemesolarized
+	url = https://github.com/jrnold/beamercolorthemesolarized.git
+[submodule "gitdags"]
+	path = gitdags
+	url = https://github.com/jubobs/gitdags.git
