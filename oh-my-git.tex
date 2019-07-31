@@ -37,57 +37,60 @@
 % solarizedGreen
 
 \begin{document}
-
     \frame{\titlepage}
-	   \begin{frame}
-           \frametitle{Table of contents}
-           \begin{enumerate}
-               \item What is git
-               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} ...and why you should care}	
-               \item Setup git
-               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Clients, differences, common issues}	
-               \item Git vs. SVN
-               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} King is dead, long live the King!}	
-               \item Git essentials
-               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Git controls crash course}	
-               \item Scenarios
-               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} We are going to break things there. A lot.}	
-               \item QA
-               \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Umm, why was I here again?}
-           \end{enumerate}
-       \end{frame}
-       \begin{frame}
-            \begin{tikzpicture}
-                % Commit DAG
-                \gitDAG[grow right sep = 2em]{
-                    A -- B -- {
-                      C,
-                      D -- E,
-                    }
-                };
-                % Tag reference
-                \gittag
-                    [v0p1]      % node name
-                    {v0.1}      % node text
-                    {above=of A}% node placement
-                    {A}         % target
-                % Remote branch
-                \gitremotebranch
-                    [originmaster]
-                    {origin/master}
-                    {above=of C}
-                    {C}
-                % Branch
-                \gitbranch
-                    {master}
-                    {above=of E}
-                    {E}
-                % HEAD reference
-                \gitHEAD
-                    {above=of master}
-                    {master}
-            \end{tikzpicture}
-       \end{frame}
-       \section{Dotazy?}
-       \section{Děkujeme za pozornost}
+    \begin{frame}
+       \frametitle{Table of contents}
+       \begin{enumerate}
+           \item What is git
+           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} ...and why you should care}	
+           \item Setup git
+           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Clients, differences, common issues}	
+           \item Git vs. SVN
+           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} King is dead, long live the King!}	
+           \item Git essentials
+           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Git controls crash course}	
+           \item Scenarios
+           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} We are going to break things there. A lot.}	
+           \item QA
+           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Umm, why was I here again?}
+       \end{enumerate}
+    \end{frame}
+    \section{What is git?}
+    \begin{frame}
+        \frametitle{History in 5 points}
+    \end{frame}
+    \begin{frame}
+        \begin{tikzpicture}
+            % Commit DAG
+            \gitDAG[grow right sep = 2em]{
+                A -- B -- {
+                  C,
+                  D -- E,
+                }
+            };
+            % Tag reference
+            \gittag
+                [v0p1]      % node name
+                {v0.1}      % node text
+                {above=of A}% node placement
+                {A}         % target
+            % Remote branch
+            \gitremotebranch
+                [originmaster]
+                {origin/master}
+                {above=of C}
+                {C}
+            % Branch
+            \gitbranch
+                {master}
+                {above=of E}
+                {E}
+            % HEAD reference
+            \gitHEAD
+                {above=of master}
+                {master}
+        \end{tikzpicture}
+    \end{frame}
+    \section{Dotazy?}
+    \section{Děkujeme za pozornost}
 \end{document}
