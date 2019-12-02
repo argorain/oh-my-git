@@ -349,7 +349,8 @@
         \begin{lstlisting}[gobble=12]
             git rebase target_branch source_branch
         \end{lstlisting}
-        \resizebox{!}{!}{%
+        $\rightarrow$ Take source branch and reattach it on end of target branch. This creates series of new commits and remove old ones from tree (althrough they will still be accessible by reflog)
+        \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
             % Commit DAG
             \gitDAG[grow right sep = 2em]{
@@ -375,7 +376,7 @@
         \end{tikzpicture}%
         }
         \begin{center}$\Downarrow$\end{center}
-        \resizebox{!}{!}{%
+        \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
             % Commit DAG
             \gitDAG[grow right sep = 2em]{
@@ -399,14 +400,15 @@
                 {feature1}
         \end{tikzpicture}%
         }
-        \end{frame}
-        \begin{frame}[fragile]
-            \frametitle{Git essentials}
-            \framesubtitle{Rebase}
-            \begin{lstlisting}[gobble=12]
-                git cherry-pick <commit hash>
-            \end{lstlisting}
-            \resizebox{!}{!}{%
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Git essentials}
+        \framesubtitle{Cherry picking}
+        \begin{lstlisting}[gobble=12]
+            git cherry-pick <commit hash>
+        \end{lstlisting}
+        $\rightarrow$ Select commit by hash and copy it on end of current branch as new commit.\newline
+        \resizebox{!}{0.25\paperheight}{%
             \begin{tikzpicture}
                 % Commit DAG
                 \gitDAG[grow right sep = 2em]{
@@ -420,9 +422,9 @@
                     {above=of D}
                     {D}
             \end{tikzpicture}%
-            }
-            \begin{center}$\Downarrow$\end{center}
-                \resizebox{!}{!}{%
+        }
+        \begin{center}$\Downarrow$\end{center}
+        \resizebox{!}{0.25\paperheight}{%
             \begin{tikzpicture}
                 % Commit DAG
                 \gitDAG[grow right sep = 2em]{
@@ -436,10 +438,22 @@
                     {above=of F'}
                     {F'}
             \end{tikzpicture}%
-            }
-            \end{frame}
-    \begin{frame}
-        \frametitle{Q \& A}
+        }
     \end{frame}
-    \section{Děkujeme za pozornost}
+
+    \begin{frame}
+        \frametitle{Scenarios}
+        It's time to break some stuff. 
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Resources}
+        \nocite{*}
+        \printbibliography     
+    \end{frame}
+    \begin{frame}
+        \Huge{Q \& A}
+    \end{frame}
+    \begin{frame}
+        \Huge{Thank you for your attention.}
+    \end{frame}
 \end{document}
