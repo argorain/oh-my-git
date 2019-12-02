@@ -1,5 +1,5 @@
 %!TEX program = xelatex
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usepackage[backend=biber,style=numeric-comp,sorting=none]{biblatex}
 \addbibresource{biblio.bib}
 
@@ -109,7 +109,7 @@
     \begin{frame}
         \frametitle{Setup git}
         \framesubtitle{Git Extensions (Git client)}
-        \noindent\centerimg[width=\paperwidth]{gitex.png} 
+        \noindent\centerimg[width=0.8\paperwidth]{gitex.png} 
         Download it here $\rightarrow$ \url{https://gitextensions.github.io}
     \end{frame}
 
@@ -185,7 +185,7 @@
     \begin{frame}
         \frametitle{Git essentials}
         \framesubtitle{Workflow overview}
-        \noindent\centerimg[width=\textwidth]{workflow.png}
+        \noindent\centerimg[width=0.8\textwidth]{workflow.png}
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
@@ -349,7 +349,7 @@
         \begin{lstlisting}[gobble=12]
             git rebase target_branch source_branch
         \end{lstlisting}
-        $\rightarrow$ Take source branch and reattach it on end of target branch. This creates series of new commits and remove old ones from tree (althrough they will still be accessible by reflog)
+        $\rightarrow$ Take source branch and reattach it on end of target branch. This creates series of new commits and remove old ones from tree (althrough they will still be accessible by reflog)\newline
         \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
             % Commit DAG
