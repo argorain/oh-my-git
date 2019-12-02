@@ -16,6 +16,16 @@
 \usepackage{multicol}
 \usepackage{verbatim}
 
+\usepackage{graphicx,changepage}
+
+\newcommand{\adjustimg}{% Horizontal adjustment of image
+  \checkoddpage%
+  \ifoddpage\hspace*{\dimexpr\evensidemargin-\oddsidemargin}\else\hspace*{-\dimexpr\evensidemargin-\oddsidemargin}\fi%
+}
+\newcommand{\centerimg}[2][width=\textwidth]{% Center an image
+  \makebox[\textwidth]{\adjustimg\includegraphics[#1]{#2}}%
+}
+
 \defaultfontfeatures{Ligatures=TeX}
 
 \title{Oh my GIT!}
@@ -61,8 +71,7 @@
            \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Umm, why was I here again?}
        \end{enumerate}
     \end{frame}
-    
-    \section{What is git?}
+
     \begin{frame}
         \frametitle{What is git?}
         \begin{itemize}
@@ -74,7 +83,8 @@
         \end{itemize}
     \end{frame}
     \begin{frame}
-        \frametitle{Differences between Git and SVN}
+        \frametitle{What is git?}
+        \framesubtitle{Differences between Git and SVN}
         \begin{itemize}
             \item Git is distributed by design
             \item Works with whole sourcetree (unlike SVN which works with individual files and their revisions)
@@ -82,9 +92,10 @@
             \item Cryptographic authentication of history - every commit has SHA-1 hash of everything leading to that point
         \end{itemize}
     \end{frame}
-    \section{Setup git}
+    
     \begin{frame}
-        \frametitle{Git clients}
+        \frametitle{Setup git}
+        \framesubtitle{Git clients}
         \begin{enumerate}
                 % icons for platforms
                 % add short desc to each
@@ -98,21 +109,12 @@
         \end{enumerate}
     \end{frame}
     \begin{frame}
-        \frametitle{Git Extensions}
-        % picture here
-        
+        \frametitle{Setup git}
+        \framesubtitle{Git Extensions (Git client)}
+        \noindent\centerimg[width=\paperwidth]{gitex.png} 
+        Download it here $\rightarrow$ \url{https://gitextensions.github.io}
     \end{frame}
-    
-    \section{Git vs. SVN}
-    \begin{frame}
-        \frametitle{Git vs. SVN}
-        Git: + works offline (and locally)
-        Git: + guide you to do things right
-        Git: + has nicer ecosystem around
-        SVN: + allows you to work dirty
-        SVN: + always online
-    \end{frame}
-    
+
     \begin{comment}
     \begin{frame}
         \begin{tikzpicture}
@@ -149,6 +151,7 @@
     \end{comment}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Short and incomplete command overview}
         \begin{multicols}{2}
         \begin{lstlisting}[gobble=12]
             git init                
@@ -163,10 +166,11 @@
                 checkout
                 merge
                 branch -d
-        \end{lstlisting}
-        \begin{lstlisting}[gobble=12]
+
+
             git log                
                 log --follow [file]
+                reflog
 
                 add
                 commit
@@ -183,10 +187,12 @@
     \end{frame}
     \begin{frame}
         \frametitle{Git essentials}
-        \includegraphics[width=\textwidth]{workflow.png}
+        \framesubtitle{Workflow overview}
+        \noindent\centerimg[width=\textwidth]{workflow.png}
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Init repo}
         \begin{lstlisting}[gobble=12]
             $ git init
         \end{lstlisting}
@@ -198,10 +204,12 @@
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Branching}
         \begin{lstlisting}[gobble=12]
             $ git checkout -b feature1
             $ (git branch feature1 ; git checkout feature1)
         \end{lstlisting}
+        \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
             % Commit DAG
             \gitDAG[grow right sep = 2em]{
@@ -224,11 +232,13 @@
             \gitHEAD
                 {above=of feature1}
                 {feature1}
-        \end{tikzpicture}
+        \end{tikzpicture}%
+        }
         \begin{lstlisting}[gobble=12]
             $ git checkout master
             $ git merge feature1
         \end{lstlisting}
+        \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
             % Commit DAG
             \gitDAG[grow right sep = 2em]{
@@ -251,29 +261,53 @@
             \gitHEAD
                 {below=of master}
                 {master}
-        \end{tikzpicture}
+        \end{tikzpicture}%
+        }
 
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Logging and searching lost stuff}
         \begin{lstlisting}[gobble=12]
-            git log
-            git ....
+            git log --graph
+        \end{lstlisting}
+        $\rightarrow$ Shows log for whole repository tree
+        \begin{lstlisting}[gobble=12]
             git log --follow [file]
         \end{lstlisting}
+        $\rightarrow$ Shows log for selected file even across renames
+        \begin{lstlisting}[gobble=12]
+            git reflog
+        \end{lstlisting}
+        $\rightarrow$ Shows log of ALL changes in repository. Stashes, detached branches, all...
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Stashing - let me just put this here for later (and never use it again)}
         \begin{lstlisting}[gobble=12]
             git stash
             git stash push
+        \end{lstlisting}
+        $\rightarrow$ Stashes current changes to new stash stack
+        \begin{lstlisting}[gobble=12]
             git stash pop
+        \end{lstlisting}
+        $\rightarrow$ Pops newest stash and apply it to current working copy
+        \begin{lstlisting}[gobble=12]
+            git stash list
+        \end{lstlisting}
+        $\rightarrow$ Show all stashes in list
+        \begin{lstlisting}[gobble=12]
             git stash apply stash@{2}
+        \end{lstlisting}
+        $\rightarrow$ Get stash \#2 and apply it to current working copy
+        \begin{lstlisting}[gobble=12]
             git checkout stash@{2} -- somefile
         \end{lstlisting}
+        $\rightarrow$ Get stash \#2 and apply it to specified files in current working copy
     \end{frame}
     \begin{frame}
-        \frametitle{Dotazy?}
+        \frametitle{Q \& A}
     \end{frame}
     \section{Děkujeme za pozornost}
 \end{document}
