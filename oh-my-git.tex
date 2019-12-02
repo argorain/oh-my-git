@@ -31,7 +31,7 @@
 \title{Oh my GIT!}
 \subtitle{Git ate my work and other stories}
 \author{Vojtěch Vladyka}
-\date{31.8.2019}
+\date{\today}
 
 % \setbeamercolor
 %
@@ -61,13 +61,11 @@
            \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} ...and why you should care}	
            \item Setup git
            \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Clients, differences, common issues}	
-           \item Git vs. SVN
-           \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} King is dead, long live the King!}	
            \item Git essentials
            \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Git controls crash course}	
            \item Scenarios
            \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} We are going to break things there. A lot.}	
-           \item QA
+           \item Q \& A
            \\   \textcolor{solarizedRebase01}{\footnotesize\hspace{1em} Umm, why was I here again?}
        \end{enumerate}
     \end{frame}
@@ -181,7 +179,6 @@
 
                 rebase
                 cherrypick
-                squash
         \end{lstlisting}
         \end{multicols}
     \end{frame}
@@ -194,20 +191,60 @@
         \frametitle{Git essentials}
         \framesubtitle{Init repo}
         \begin{lstlisting}[gobble=12]
-            $ git init
+            git init
         \end{lstlisting}
         $\rightarrow$ initialize new repository in current directory with all its contents
         \begin{lstlisting}[gobble=12]
-            $ git clone https://somerepo.com/repo.git
+            git clone https://somerepo.com/repo.git
         \end{lstlisting}
         $\rightarrow$ downloads repository with all current branches \& commits
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Fetching changes and returning them back}
+        \begin{lstlisting}[gobble=12]
+            git pull
+        \end{lstlisting}
+        $\rightarrow$ Download commits from server and apply them to your working tree
+        \begin{lstlisting}[gobble=12]
+            git push
+        \end{lstlisting}
+        $\rightarrow$ Upload your commits to server
+        \begin{lstlisting}[gobble=12]
+            git fetch --all
+        \end{lstlisting}
+        $\rightarrow$ Download commits from server (from all branches eventually)
+        \begin{lstlisting}[gobble=12]
+            git commit [files] -m "Commit message"
+        \end{lstlisting}
+        $\rightarrow$ Create a commit with commit message and specified files\newline
+        $\rightarrow$ You can use -a to commit all changes instead list of files
+        \begin{lstlisting}[gobble=12]
+            git add [file]
+        \end{lstlisting}
+        $\rightarrow$ Move file to staging area - add it to commit list
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Git essentials}
+        \framesubtitle{Undoing changes}
+        \begin{lstlisting}[gobble=12]
+            git reset
+        \end{lstlisting}
+        $\rightarrow$ Soft reset - remove files from staging area and move them back to working area. Nothing is actually reverted, this resets it only for git.
+        \begin{lstlisting}[gobble=12]
+            git reset --hard
+        \end{lstlisting}
+        $\rightarrow$ Hard reset - this do all what soft reset but also REMOVES your uncommitted changes.
+        \newline\newline
+        $\rightarrow$ You can do this only locally. Once you push your changes, you cannot get it back. (not exactly true but you will break a lot of thing for all colleagues). Only way how to propperly revert things it using git revert.
+    \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Git essentials}
         \framesubtitle{Branching}
         \begin{lstlisting}[gobble=12]
-            $ git checkout -b feature1
-            $ (git branch feature1 ; git checkout feature1)
+            git checkout -b feature1
+            (git branch feature1 ; git checkout feature1)
         \end{lstlisting}
         \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
@@ -235,8 +272,8 @@
         \end{tikzpicture}%
         }
         \begin{lstlisting}[gobble=12]
-            $ git checkout master
-            $ git merge feature1
+            git checkout master
+            git merge feature1
         \end{lstlisting}
         \resizebox{!}{0.25\paperheight}{%
         \begin{tikzpicture}
@@ -306,6 +343,101 @@
         \end{lstlisting}
         $\rightarrow$ Get stash \#2 and apply it to specified files in current working copy
     \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Git essentials}
+        \framesubtitle{Rebase}
+        \begin{lstlisting}[gobble=12]
+            git rebase target_branch source_branch
+        \end{lstlisting}
+        \resizebox{!}{!}{%
+        \begin{tikzpicture}
+            % Commit DAG
+            \gitDAG[grow right sep = 2em]{
+                A -- B --{
+                    C -- D ,
+                    E -- F -- G
+                }
+            };
+            % Branch
+            \gitbranch
+                {master}
+                {above=of D}
+                {D}
+            % Branch
+            \gitbranch
+                {feature1}
+                {above=of G}
+                {G}
+            % HEAD reference
+            \gitHEAD
+                {above=of feature1}
+                {feature1}
+        \end{tikzpicture}%
+        }
+        \begin{center}$\Downarrow$\end{center}
+        \resizebox{!}{!}{%
+        \begin{tikzpicture}
+            % Commit DAG
+            \gitDAG[grow right sep = 2em]{
+                A -- B -- C -- D -- {
+                    E' -- F' -- G'
+                }
+            };
+            % Branch
+            \gitbranch
+                {master}
+                {above=of D}
+                {D}
+            % Branch
+            \gitbranch
+                {feature1}
+                {above=of G'}
+                {G'}
+            % HEAD reference
+            \gitHEAD
+                {above=of feature1}
+                {feature1}
+        \end{tikzpicture}%
+        }
+        \end{frame}
+        \begin{frame}[fragile]
+            \frametitle{Git essentials}
+            \framesubtitle{Rebase}
+            \begin{lstlisting}[gobble=12]
+                git cherry-pick <commit hash>
+            \end{lstlisting}
+            \resizebox{!}{!}{%
+            \begin{tikzpicture}
+                % Commit DAG
+                \gitDAG[grow right sep = 2em]{
+                    A -- B --{
+                        C -- D ,
+                        E -- F -- { G }
+                    } 
+                };
+                % HEAD reference
+                \gitHEAD
+                    {above=of D}
+                    {D}
+            \end{tikzpicture}%
+            }
+            \begin{center}$\Downarrow$\end{center}
+                \resizebox{!}{!}{%
+            \begin{tikzpicture}
+                % Commit DAG
+                \gitDAG[grow right sep = 2em]{
+                    A -- B --{
+                        C -- D -- { F' },
+                        E -- F -- { G }
+                    } 
+                };
+                % HEAD reference
+                \gitHEAD
+                    {above=of F'}
+                    {F'}
+            \end{tikzpicture}%
+            }
+            \end{frame}
     \begin{frame}
         \frametitle{Q \& A}
     \end{frame}
