@@ -345,6 +345,26 @@
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
+        \framesubtitle{Submodules}
+        \begin{lstlisting}[gobble=12]
+            git submodule add <url to submodule repository>
+        \end{lstlisting}
+        $\rightarrow$ This adds new submodule to current repository and also clones it.\newline
+        \begin{lstlisting}[gobble=12]
+            git submodule init
+        \end{lstlisting}
+        $\rightarrow$ This clones submodules when you just cloned new repository with submodules.\newline
+        \begin{lstlisting}[gobble=12]
+            git submodule update --init --recursive
+        \end{lstlisting}
+        $\rightarrow$ And this downloads submodules to version specified in repository (and eventually clones new submodules)\newline
+        \begin{lstlisting}[gobble=12]
+            git submodule foreach 'do something'
+        \end{lstlisting}
+        $\rightarrow$ This runs 'do something' on every submodule.\newline
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Git essentials}
         \framesubtitle{Rebase}
         \begin{lstlisting}[gobble=12]
             git rebase target_branch source_branch
