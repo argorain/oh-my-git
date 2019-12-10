@@ -73,21 +73,13 @@
     \begin{frame}
         \frametitle{What is git?}
         \begin{itemize}
-            \item version control system made by Linus Torvalds (mostly) at 2005 for Linux Kernel development
-            \item always capture state of working tree
-            \item focused on distributed development
-            \item supports rapid branching \& merging
-            \item it is pronounced GIT with G like GIF ~\footfullcite{linus-speech}
-        \end{itemize}
-    \end{frame}
-    \begin{frame}
-        \frametitle{What is git?}
-        \framesubtitle{Differences between Git and SVN}
-        \begin{itemize}
             \item Git is distributed by design
-            \item Works with whole sourcetree (unlike SVN which works with individual files and their revisions)
+            \item Works with whole sourcetree (unlike SVN which works with individual files and their revisions) and always capture state of working tree
             \item Strong support for non-linear development $\rightarrow$ rapid branching \& merging
             \item Cryptographic authentication of history - every commit has SHA-1 hash of everything leading to that point
+            \item Version control system made by Linus Torvalds (mostly) at 2005 for Linux Kernel development
+            \item Supports rapid branching \& merging
+            \item it is pronounced GIT with G like GIF ~\footfullcite{linus-speech}
         \end{itemize}
     \end{frame}
     
@@ -463,8 +455,143 @@
 
     \begin{frame}
         \frametitle{Scenarios}
-        It's time to break some stuff. 
+        \huge{It's time to break some stuff. }
     \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Fresh start - cloning}
+        \begin{lstlisting}[gobble=12]
+            git clone https://bitbucket.honeywell.com/users/e878714/
+                        repos/playground/commits
+        \end{lstlisting}
+        $\rightarrow$ This downloads whole repository into current working directory. (that URL should not be splitted but slide is too short...)
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Branching}
+        $\rightarrow$ We do not want to fight all together so we create own branches
+        \begin{lstlisting}[gobble=12]
+            git branch your-branch-name
+            git checkout your-branch-name
+        \end{lstlisting}
+        $\rightarrow$ Now we should all be at 'your-branch-name' branch.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Committing}
+        $\rightarrow$ Do some changes (anything) in code you just cloned
+        \begin{lstlisting}[gobble=12]
+            git commit -am "Your commit message"
+        \end{lstlisting}
+        $\rightarrow$ This commits all your changes with your commit message.
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Pushing}
+        $\rightarrow$ Let's put our changes on server
+        \begin{lstlisting}[gobble=12]
+            git push
+        \end{lstlisting}
+        $\rightarrow$ This should actually fail because we are pushing to non-existen branch on server
+        \begin{lstlisting}[gobble=12]
+            git push --set-upstream origin your-branch-name
+        \end{lstlisting}
+        $\rightarrow$ And this will work. It creates new branch with our name on remote server named 'origin'
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Adding}
+        $\rightarrow$ Let's create new file and add it to repository
+        \begin{lstlisting}[gobble=12]
+            git add our-new-file.txt
+        \end{lstlisting}
+        $\rightarrow$ This adds our-new-file.txt to staging area. We need to commit it next.
+        \begin{lstlisting}[gobble=12]
+            git commit -am "Your commit message"
+        \end{lstlisting}
+        $\rightarrow$ If we are happy with it, we can push it.
+        \begin{lstlisting}[gobble=12]
+            git push
+        \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Merging and pulling}
+        $\rightarrow$ Now we want to merge our stuff into master. Normally we will create pull request but today we will merge direcly to master. We start with checking out master branch.
+        \begin{lstlisting}[gobble=12]
+            git checkout master
+        \end{lstlisting}
+        $\rightarrow$ Now we need to get latest changes from it.
+        \begin{lstlisting}[gobble=12]
+            git pull
+        \end{lstlisting}
+        $\rightarrow$ And now we can merge it.
+        \begin{lstlisting}[gobble=12]
+            git merge vojtuv-test
+        \end{lstlisting}
+        $\rightarrow$ And push result.
+        \begin{lstlisting}[gobble=12]
+            git push
+        \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Log, Checkout}
+        $\rightarrow$ We want to work on our branch again (or somebody elses branch).\newline
+        $\rightarrow$ We get latest changes firts from all branches and delete references to non-existent ones.
+        \begin{lstlisting}[gobble=12]
+            git fetch --all --prune
+        \end{lstlisting}
+        $\rightarrow$ Now we can take a look on current repository log
+        \begin{lstlisting}[gobble=12]
+            git log --graph
+        \end{lstlisting}
+        $\rightarrow$ And eventually checkouts something
+        \begin{lstlisting}[gobble=12]
+            git checkout our-branch-name
+        \end{lstlisting}
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Stash}
+        $\rightarrow$ Let's do some changes...\newline
+        $\rightarrow$ Ok, we don't want them actaully. We need to get rid of them. But it's really nice piece of work so we will keep them for later.
+        \begin{lstlisting}[gobble=12]
+            git stash
+        \end{lstlisting}
+        $\rightarrow$ Ok, it's gone. You can verify it with status.
+        \begin{lstlisting}[gobble=12]
+            git status
+        \end{lstlisting}
+        $\rightarrow$ Now fast forward a little bit and assume we want them back. We can be on different branch, we can be in future, it doesn't matter. 
+        \begin{lstlisting}[gobble=12]
+            git stash list
+            git stash apply stash@{0}
+        \end{lstlisting}
+        $\rightarrow$ Check who's back!
+    \end{frame}
+    \begin{frame}[fragile]
+        \frametitle{Scenarios}
+        \framesubtitle{Reset}
+        $\rightarrow$ Oh my god, that change was rubbish... We need to delete it.
+        \begin{lstlisting}[gobble=12]
+            git reset --hard
+        \end{lstlisting}
+        $\rightarrow$ Uff, it's gone.
+    \end{frame}
+    \begin{frame}
+        \frametitle{Scenarios}
+        \framesubtitle{Git online playground}
+        If you want to play with branching, rebasing, merging, squashing etc., this is great tool for playing with it.\newline
+        \url{https://learngitbranching.js.org}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Troubleshooting}
+        \framesubtitle{Windows Crenedital Manager}       
+        Git.exe uses Credential manager for storing login information. It's nice feature with one undesired issue - password change doesn't affect stored credentials so you need to remove record manually when you change your password.
+        \noindent\centerimg[width=0.6\paperwidth]{credentials.png} 
+    \end{frame}
+
     \begin{frame}[fragile]
         \frametitle{Resources}
         \nocite{*}
