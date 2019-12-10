@@ -82,6 +82,19 @@
             \item it is pronounced GIT with G like GIF ~\footfullcite{linus-speech}
         \end{itemize}
     \end{frame}
+
+    \begin{frame}[fragile]
+        \frametitle{Git philosophy}
+        \begin{multicols}{2}
+            \begin{itemize}
+                \item Create branch for each feature
+                \item Commit often
+                \item Merge back to master as soon as possible
+                \item Create small isolated as-much-as-possible pull requests
+            \end{itemize}
+            \includegraphics[width=0.45\textwidth]{pull-request.png}
+        \end{multicols}
+    \end{frame}
     
     \begin{frame}
         \frametitle{Setup git}
@@ -176,6 +189,10 @@
     \end{frame}
     \begin{frame}
         \frametitle{Git essentials}
+        \noindent\centerimg[width=0.4\textwidth]{git.png}
+    \end{frame}
+    \begin{frame}
+        \frametitle{Git essentials}
         \framesubtitle{Workflow overview}
         \noindent\centerimg[width=0.8\textwidth]{workflow.png}
     \end{frame}
@@ -216,6 +233,10 @@
         \end{lstlisting}
         $\rightarrow$ Move file to staging area - add it to commit list
     \end{frame}
+    \begin{frame}
+        \frametitle{Git essentials}
+        \noindent\centerimg[width=0.6\textwidth]{git_commit.png}
+    \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
         \framesubtitle{Undoing changes}
@@ -229,6 +250,10 @@
         $\rightarrow$ Hard reset - this do all what soft reset but also REMOVES your uncommitted changes.
         \newline\newline
         $\rightarrow$ You can do this only locally. Once you push your changes, you cannot get it back. (not exactly true but you will break a lot of thing for all colleagues). Only way how to propperly revert things it using git revert.
+    \end{frame}
+
+    \begin{frame}
+        \noindent\centerimg[height=1.0\textheight]{it-hell.png}
     \end{frame}
 
     \begin{frame}[fragile]
@@ -293,6 +318,9 @@
         \end{tikzpicture}%
         }
 
+    \end{frame}
+    \begin{frame}
+        \noindent\centerimg[width=1.0\textwidth]{merging-branches-2.png}
     \end{frame}
     \begin{frame}[fragile]
         \frametitle{Git essentials}
